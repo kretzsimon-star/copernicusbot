@@ -98,7 +98,54 @@ function closePage(){
     "<div><h1>✅ Session closed</h1><p style='font-size:20px;'>Good boss detected 😎</p></div>" +
     "</div>";
 }
-</script>
+<script>
 
-</body>
-</html>
+const BACKEND_URL =
+"https://script.google.com/macros/s/AKfycbxB2TYV5mJ3blO3rLObep5Y15MHTxXFiFF6QZdlD_TMcKbmtXAu0IDEU_PGNH9V5WaNuw/exec";
+
+const params = new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+const aktion = params.get("aktion");
+
+if(id && aktion){
+
+  fetch(
+    BACKEND_URL +
+    "?id=" + encodeURIComponent(id) +
+    "&aktion=" + encodeURIComponent(aktion)
+  );
+
+}
+
+setTimeout(function(){
+
+  document.getElementById("loading").style.display = "none";
+
+  document.getElementById("result").style.display = "block";
+
+  if(aktion === "ablehnen"){
+
+    document.querySelector("#result h1").innerHTML =
+      "❌ Urlaub abgelehnt";
+
+    document.querySelectorAll("#result p")[0].innerHTML =
+      "Der Antrag wurde erfolgreich verarbeitet.";
+
+    document.querySelectorAll("#result p")[1].innerHTML =
+      "Der Mitarbeiter wurde automatisch informiert.";
+
+  }
+
+}, 3000);
+
+function closePage(){
+
+  document.body.innerHTML =
+    "<div style='display:flex;justify-content:center;align-items:center;height:100vh;font-family:Arial;text-align:center;background:#f4f6f9;'>" +
+    "<div><h1>✅ Session closed</h1><p style='font-size:20px;'>Good boss detected 😎</p></div>" +
+    "</div>";
+
+}
+
+</script>
